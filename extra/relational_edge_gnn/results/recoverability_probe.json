@@ -1,0 +1,39 @@
+{
+  "undirected_edges": 25732,
+  "embedding_dim": 512,
+  "input_dim": 1024,
+  "test_fraction": 0.2,
+  "ridge_lambda": 10.0,
+  "split": "reference-disjoint (both endpoints held out)",
+  "features": [
+    {
+      "feature": "soap_distance",
+      "metric": "r2",
+      "r2_mean": 0.052568841821588094,
+      "r2_std": 0.0553592241244342,
+      "splits_used": 5,
+      "train_edges": 16041,
+      "test_edges": 1120
+    },
+    {
+      "feature": "cooccurrence_pmi",
+      "metric": "r2",
+      "r2_mean": 0.1842498491648284,
+      "r2_std": 0.0588876393588348,
+      "splits_used": 5,
+      "train_edges": 16041,
+      "test_edges": 1120
+    },
+    {
+      "feature": "hull_compatibility",
+      "metric": "auc",
+      "auc_mean": 0.7071650246323018,
+      "auc_std": 0.02794825909483028,
+      "splits_used": 5,
+      "train_edges": 16041,
+      "test_edges": 1120,
+      "positive_rate": 0.6777164619928494
+    }
+  ],
+  "interpretation": "Higher R^2/AUC => feature more recoverable from embeddings => more redundant. Near-zero R^2 (or AUC near positive_rate-equivalent 0.5) => genuinely non-redundant."
+}
