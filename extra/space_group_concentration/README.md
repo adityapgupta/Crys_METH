@@ -12,7 +12,7 @@ size-matched label-permutation null.
 
 `common.py` holds the shared argument parsing, provenance and I/O helpers.
 
-## Results (`results/`)
+## Results ([`outputs/gnn/summaries/space_group_concentration/`](../../outputs/gnn/summaries/space_group_concentration/))
 
 - `spacegroup_capture.csv` — per-group concentration, enrichment, permutation p, BH q.
 - `community_summary.csv` — per-community size and dominant space group / chemistry.

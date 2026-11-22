@@ -1,0 +1,30 @@
+# Run from the repository root; all paths below are repository-relative.
+release_root: data/eval/inputs/release/exp_logs/base/mp_20/eval
+reference_export: outputs/gnn/reference_set_comparison/mp20_train
+checkpoint: data/eval/reference_set_comparison/artifacts/model_1972.pt
+scaler: data/eval/reference_set_comparison/artifacts/scalers/primitive-reduced-type-sorted-float32-v1-cap20000-seed0.pt
+jepa_config: configs/jepa.yml
+hull_database: data/eval/hull/mp.lmdb
+output: outputs/gnn/reference_set_comparison/comparison_20_29
+cache: data/eval/reference_set_comparison/artifacts/proxy_cache
+start_batch: 20
+end_batch: 29
+neighbours: [5, 10, 15, 25]
+fractions: [0.01, 0.05, 0.10]
+seed: 2026
+device: cuda
+embedding_batch_size: 32
+retrieval_batch_size: 128
+prediction_batch_size: 8
+bootstrap_repeats: 2000
+models:
+  megnet:
+    backend: megnet
+    repository: materialyze/MEGNet-Eform-MP-2018.6.1
+    directory: data/eval/reference_set_comparison/artifacts/models/megnet
+  esen:
+    backend: esen
+    repository: facebook/OMAT24
+    filename: esen_30m_mptrj.pt
+    directory: data/eval/reference_set_comparison/artifacts/models/esen
+    checkpoint: data/eval/reference_set_comparison/artifacts/models/esen/esen_30m_mptrj.pt

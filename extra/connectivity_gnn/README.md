@@ -18,11 +18,11 @@ This experiment reuses the base `models/reference_gnn.py` and
 `training/train_reference_gnn.py` unchanged. The `soap` and `phase` graphs are
 registered in the base `datasets/reference_graph.py` `GRAPH_NAMES`, and
 `physical`/`cosine` come from the base `graphs/build_reference_graph.py`. Those
-one-line registrations live in the shared base (via `REFERENCE_BASE_PATH`), not
+one-line registrations live in the shared base (under `gnn/reference_baselines`), not
 here, so this folder only holds the new adjacency builder, evaluator, config and
 tests.
 
-## Results (`results/`)
+## Results ([`outputs/gnn/summaries/connectivity_gnn/`](../../outputs/gnn/summaries/connectivity_gnn/))
 
 `metrics.csv`, `controlled_comparisons.csv`, `checkpoints.csv` from the reserved
 partition.

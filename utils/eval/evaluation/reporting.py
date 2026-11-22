@@ -23,7 +23,7 @@ def historical_appendix():
                 if not path.is_file() or sha(path) != record['files'][name]:
                     raise ValueError(f'Cached historical appendix asset changed: {name}')
             return pd.read_csv(dest/'historical_esen.csv')
-    source = ROOT/'utils/eval/reference_baselines/reference_set_comparison/outputs/comparison_20_29/reports/analysis_batchwise'
+    source = ROOT/'outputs/gnn/reference_set_comparison/comparison_20_29/reports/analysis_batchwise'
     record = read_json(source/'analysis_provenance.json')
     filename = 'selected_scope_metrics.csv'
     if sha(source/filename) != record['derived_tables'][filename]:

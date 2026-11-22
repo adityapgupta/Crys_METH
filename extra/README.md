@@ -10,31 +10,28 @@ experiments, collected for the report appendix:
 | `relational_edge_gnn/` | Do edge features built *independently* of the embeddings (SOAP geometry, co-occurrence PMI, hull tie-lines) help? | Null: no reliable gain; features verified largely non-redundant |
 | `connectivity_gnn/` | Does any graph *wiring* (embedding-kNN, SOAP geometry, hull tie-line) beat the no-graph readout? | Null: no wiring beats the no-graph readout or the co-occurrence graph |
 
-Each folder holds that experiment's own code plus its headline result CSVs under
-`results/`.
+Each folder holds compatibility entry points and documentation. Headline result
+tables are under [`outputs/gnn/summaries/`](../outputs/gnn/summaries/), grouped by
+the same experiment names.
 
-## The shared base (`REFERENCE_BASE_PATH`)
+## Shared implementation
 
-These experiments are **not duplicated here** — they build on a shared base
-pipeline (the base dataset/graph, the reference GNN, the trainer, the evaluator,
-and all precomputed inputs) that lives in the `reference_baselines` package,
-maintained separately. The code here imports it as `reference_baselines.*`.
+All implementations now live in
+[`../gnn/reference_baselines/`](../gnn/README.md).
+The Python files here are compatibility entry points, so existing commands still
+work. `env.py` locates the bundled package automatically; no `.env` file or
+`REFERENCE_BASE_PATH` setting is used.
 
-To make those imports resolve, point `REFERENCE_BASE_PATH` at the directory that
-*contains* the `reference_baselines` package:
+From the repository root, stage the existing evaluation inputs once:
 
-1. `cp .env.example .env`
-2. edit `.env` and set `REFERENCE_BASE_PATH` to your checkout.
+```bash
+python gnn/run.py prepare
+python extra/edge_attribute_gnn/train.py --help
+python extra/relational_edge_gnn/train.py --help
+```
 
-`env.py` reads `.env` and puts that directory on `sys.path`. Every module here
-loads it before importing anything from `reference_baselines`. Operational paths
-(inputs, configs, where fresh runs write) therefore come from the base tree; the
-`config.toml` and `results/*.csv` kept in each folder are the committed snapshots
-for the appendix.
-
-## What is intentionally not here
-
-- Cluster submit / sync scripts (`*.slurm`, `*.sh`) — the base repo keeps those.
-- The shared base modules themselves — referenced via `REFERENCE_BASE_PATH`.
-- Intermediate run artifacts (smoke runs, superseded pre-fix runs) — only the
-  final reserved-evaluation CSVs are kept.
+Experiment `config.toml` files here and result summaries under `outputs/gnn/summaries/`
+are historical snapshots.
+Executable configurations live in the shared package's `configs/` folder. New
+outputs and checkpoints live under `outputs/gnn/`. Some experiments require
+additional raw inputs and intermediate artifacts; see the shared package README.

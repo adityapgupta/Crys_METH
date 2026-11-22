@@ -103,9 +103,16 @@ def _source_hashes():
                 'evaluation.inference.graphs': sha(Path(__file__))}
 ''' + source[end:]
     graph_hash = hashlib.sha256(source.encode('utf-8')).hexdigest()
-    return {module.__name__: sha(Path(module.__file__))
-            for module in (decomposition, cooccurrence, angular, retrieval)} | {
-                'evaluation.inference.graphs': graph_hash}
+    # Only decomposition's default input location changed. Reconstruct its
+    # prior source bytes for the historical algorithm receipt; every other
+    # edit still changes the digest and invalidates the frozen graphs.
+    prior = Path(decomposition.__file__).read_text()
+    prior = prior.replace('\nfrom reference_baselines.paths import EMBEDDINGS_DIR\n', '')
+    prior = prior.replace("EMBEDDINGS_DIR / 'metadata.csv'", 'ROOT / "embeddings/data/metadata.csv"')
+    hashes = {module.__name__: sha(Path(module.__file__))
+              for module in (decomposition, cooccurrence, angular, retrieval)}
+    hashes[decomposition.__name__] = hashlib.sha256(prior.replace("\n", "\r\n").encode()).hexdigest()
+    return hashes | {'evaluation.inference.graphs': graph_hash}
 
 
 def graph_inputs(c):

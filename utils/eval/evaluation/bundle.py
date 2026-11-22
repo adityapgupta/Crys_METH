@@ -16,7 +16,14 @@ def main():
         files.add(ROOT/'evaluation.ipynb')
     utility_root = ROOT/'utils/eval'
     files.update(p for p in utility_root.rglob('*.py') if '__pycache__' not in p.parts)
-    dest = ROOT/'data/eval/results/source-overlay.tar.gz'
+    # Include the relocated baseline package, launcher and executable configs.
+    gnn_root = ROOT/'gnn'
+    files.update(p for p in gnn_root.rglob('*') if p.is_file()
+                 and '__pycache__' not in p.parts
+                 and p.suffix in ('.py', '.toml', '.yml', '.yaml', '.txt', '.md'))
+    files.update(p for p in (ROOT/'utils').glob('*.py'))
+    files.add(ROOT/'configs/jepa.yml')
+    dest = ROOT/'outputs/evaluation/source-overlay.tar.gz'
     dest.parent.mkdir(parents=True,exist_ok=True)
     with tarfile.open(dest,'w:gz') as archive:
         for path in sorted(files):

@@ -16,7 +16,7 @@ reference weighting over the scalar co-occurrence weight? **Null result.**
 Training target is reference decomposition-membership (not candidate stability);
 MatterSim labels are opened only at reserved evaluation.
 
-## Results (`results/`)
+## Results ([`outputs/gnn/summaries/edge_attribute_gnn/`](../../outputs/gnn/summaries/edge_attribute_gnn/))
 
 `metrics.csv`, `scores.csv`, `controlled_comparisons.csv` from the reserved
 partition. Headline: `rich − scalar`, `rich − shuffled`, `rich − readout`

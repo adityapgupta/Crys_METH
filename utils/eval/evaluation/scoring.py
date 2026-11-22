@@ -1,4 +1,5 @@
 """Exact baseline retrieval and label-free inference with the original GNN class."""
+from pathlib import Path
 from itertools import combinations
 import numpy as np
 import pandas as pd
@@ -109,7 +110,9 @@ def validate_training(c):
                     raise ValueError(f'Training input mismatch: {name}')
         for rel, expected in record.get('source_sha256',{}).items():
             if rel.replace('\\','/').endswith(('models/reference_gnn.py','models/reference.py')):
-                if sha(ROOT/rel) != expected:
+                from reference_baselines.paths import PACKAGE_DIR
+                local = PACKAGE_DIR / 'models' / Path(rel.replace('\\', '/')).name
+                if sha(local) != expected:
                     raise ValueError(f'Trained model source changed: {rel}')
 
 

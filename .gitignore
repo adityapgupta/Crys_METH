@@ -19,3 +19,8 @@ __pycache__/
 *.pt
 *.pth
 *.lmdb
+
+# GNN run artifacts; keep the curated, portable summary tables.
+/outputs/gnn/*
+!/outputs/gnn/summaries/
+/outputs/evaluation/

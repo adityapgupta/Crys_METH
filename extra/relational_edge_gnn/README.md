@@ -17,7 +17,7 @@ tie-line compatibility — help on the fixed physical topology? **Null result.**
 `edge_features.py` needs `results/reference_hull_energies.csv` and the SOAP
 fingerprints in the base tree (see the module docstring).
 
-## Results (`results/`)
+## Results ([`outputs/gnn/summaries/relational_edge_gnn/`](../../outputs/gnn/summaries/relational_edge_gnn/))
 
 `metrics.csv`, `scores.csv`, `controlled_comparisons.csv` (reserved partition) and
 `recoverability_probe.json`. Headline: no variant reliably beats the scalar
