@@ -1,0 +1,9 @@
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.14.1
+pymatgen==2025.6.14
+matplotlib==3.10.1
+jupyterlab==4.3.6
+nbclient==0.10.2
+ipykernel==6.29.5
+# Install torch==2.6.0 from the CPU index separately on the laptop.

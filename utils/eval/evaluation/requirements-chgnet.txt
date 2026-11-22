@@ -1,0 +1,7 @@
+chgnet==0.4.0
+numpy==1.26.4
+pandas==2.2.3
+scipy==1.14.1
+lmdb==1.6.2
+# The package release is 0.4.0; the explicitly selected pretrained model is 0.3.0.
+# Install torch==2.6.0 separately, using the CUDA build compatible with the allocated node.

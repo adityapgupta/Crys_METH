@@ -9,7 +9,7 @@ import pandas as pd
 import torch
 from pymatgen.core import Structure
 
-from components.inference import encode_prepared, load_encoder, prepare_structure
+from utils.inference import encode_prepared, load_encoder, prepare_structure
 
 
 DATASET_SPLITS = {

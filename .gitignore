@@ -6,6 +6,9 @@ __pycache__/
 /mp_20/
 /release_data/
 /.venv*/
+/logs/
+/data/
+/eval/
 
 # Downloaded archives and generated model/embedding artifacts.
 *.zip
