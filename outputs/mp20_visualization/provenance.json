@@ -1,0 +1,52 @@
+{
+  "sources": {
+    "/home/a/adityapg/work/Crys_JEPA/data/base/mp_20/train.csv.gz": "237437a664c436e1a092223cce5c00e8795cb3eb9d5ea958346a00adaa6cfa9f",
+    "/home/a/adityapg/work/Crys_JEPA/data/base/mp_20/val.csv.gz": "f210043e52eaa8a4f7b3372a92138f60f7f3a9c7dc872f3e767178c2eeb5a3f5",
+    "/home/a/adityapg/work/Crys_JEPA/data/base/mp_20/test.csv.gz": "df91d77ed51133dcd3bbfbcf703d518b4ccae2311bcacbac88c21cdb9abd9fe5"
+  },
+  "checkpoint_sha256": "c0f452d329dd1ced5460621db20549d669c616b11201a78c5088351c8a890b9a",
+  "scaler_sha256": "e64505739eebc199d16728610efe1abc62d25c6ea338f4d59e39ddd1e1d00d84",
+  "config_sha256": "ee23103897474d09e6a93bd4d429840420977aa797071742baa806b22bfd14a3",
+  "preprocessing": "primitive-reduced-type-sorted-float32-v1",
+  "rows": 45229,
+  "shape": [
+    45229,
+    512
+  ],
+  "parameters": {
+    "data_dir": "/home/a/adityapg/work/Crys_JEPA/data/base/mp_20",
+    "splits": [
+      "train",
+      "val",
+      "test"
+    ],
+    "checkpoint": "/home/a/adityapg/work/Crys_JEPA/logs/jepa/saved_model/model_1972.pt",
+    "scaler": "/home/a/adityapg/work/Crys_JEPA/data/jepa/mean_std_scaler.pt",
+    "config": "/home/a/adityapg/work/Crys_JEPA/configs/jepa/mp.yml",
+    "out_dir": "outputs/mp20_visualization",
+    "plot_only": false,
+    "device": "auto",
+    "batch_size": 32,
+    "limit_per_split": null,
+    "method": "both",
+    "metric": "cosine",
+    "seed": 42,
+    "neighbors": 30,
+    "min_dist": 0.1,
+    "perplexity": 30,
+    "symprec": 0.1,
+    "ltol": 0.2,
+    "stol": 0.3,
+    "angle_tol": 5
+  },
+  "versions": {
+    "torch": "2.6.0+cu124",
+    "pymatgen": "2025.6.14",
+    "numpy": "2.5.4",
+    "pandas": "2.3.3"
+  },
+  "script_sha256": "7575f952d101123fbaf6fd33f51318d6bb0d4dc9baedff06f474b8ad29649f89",
+  "label_note": "Prototype labels are derived geometry matches to a limited ideal library, not MP20 ground truth. Unmatched does not mean invalid.",
+  "embeddings_sha256": "cf4b1a2637b3131b820787094a21d92c00423c9dd81706084c8febdf8feb5f4f",
+  "metadata_sha256": "8c8b8be17d2e2dd6c458df9c898caf4e212808b3daa1da14fdba6682de6f5f02"
+}
