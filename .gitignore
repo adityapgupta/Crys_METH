@@ -15,7 +15,6 @@ __pycache__/
 *.tar
 *.tar.gz
 *.tgz
-*.npy
 *.npz
 *.pt
 *.pth
