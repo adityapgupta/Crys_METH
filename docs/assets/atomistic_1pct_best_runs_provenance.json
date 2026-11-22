@@ -1,0 +1,17 @@
+{
+  "files": {
+    "atomistic_1pct_best_runs.csv": "8003499b101e9aac5be05e38cd97d3b5eab42d1caad966b82ba3874338f24a91",
+    "chgnet_heldout_1pct_best_runs.pdf": "ef81321407bfdcf17cd1d86bcf1d2076cdc578f6618b7f08367835edef9ef0d1",
+    "chgnet_heldout_1pct_best_runs.png": "15daf9c8a446e8503b176fc31222f9edfe506089b04162061b4a3044cc7b0695",
+    "megnet_heldout_1pct_best_runs.pdf": "d876503d3218f74bc4a5e4e297cf3fa9647f6f0f96962c90c1a359e01f91e2bf",
+    "megnet_heldout_1pct_best_runs.png": "83f596f74bdb8eba5cb59515b5a096a01bf22f7af9e95c490919c184d2e5078d"
+  },
+  "source_analysis_sha256": "183c5a25375cfb2c5aa762209ecd23937c9ab3ee36d841d8e72cecef7f400554",
+  "source_sha256": "911a17f740cd6cc5c4688f5dd66c028bedb7628d2251ed4db79c4c2a250b9231",
+  "budget": 0.01,
+  "policy": "unique_refill",
+  "threshold": "strict <0.1 eV/atom",
+  "reporting": "Best observed run per GCN/GAT/GraphSAGE over physical/cosine and 3 seeds; best k per kNN metric. Descriptive, chosen using evaluation outcomes.",
+  "candidate_population": 35332,
+  "requested_slots_per_method": 353
+}
