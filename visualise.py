@@ -181,7 +181,7 @@ def main():
     )
     parser.add_argument("--config", type=Path, default=ROOT / "configs/jepa.yml")
     parser.add_argument(
-        "--out-dir", type=Path, default=ROOT / "outputs/mp20_visualization"
+        "--out-dir", type=Path, default=ROOT / "outputs/visualization"
     )
     parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     parser.add_argument("--batch-size", type=int, default=32)

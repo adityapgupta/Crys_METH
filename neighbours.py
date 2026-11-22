@@ -4,6 +4,7 @@ import os
 import warnings
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import torch
 from itertools import combinations
@@ -118,11 +119,25 @@ def parse_args():
         default=0,
         help="Zero-based occurrence when a material ID appears multiple times.",
     )
-    parser.add_argument("--input", default="logs/jepa/jepa_embeddings.pt")
+    parser.add_argument(
+        "--input",
+        default="outputs/visualization/embeddings.npy",
+        help="Embedding cache (.npy) or legacy PyTorch bundle (.pt).",
+    )
+    parser.add_argument(
+        "--metadata",
+        default=None,
+        help="Metadata CSV for --input .npy; defaults to metadata.csv beside it.",
+    )
     parser.add_argument(
         "--extract",
         action="store_true",
         help="Extract embeddings only, save the bundle, and exit.",
+    )
+    parser.add_argument(
+        "--extract-output",
+        default="logs/jepa/jepa_embeddings.pt",
+        help="Output bundle used with --extract.",
     )
     parser.add_argument(
         "--dataset",
@@ -166,8 +181,11 @@ def main():
     if args.extract:
         from utils.extract import extract_embedding_bundle
 
+        extract_output = args.extract_output
+        if args.input.lower().endswith(".pt"):
+            extract_output = args.input
         extract_embedding_bundle(
-            output=args.input,
+            output=extract_output,
             dataset=args.dataset,
             checkpoint=args.checkpoint,
             scaler=args.scaler,
@@ -180,10 +198,39 @@ def main():
         raise ValueError("--material-id is required unless --extract is used")
     if not os.path.isfile(args.input):
         raise FileNotFoundError(
-            f"Embedding bundle not found: {args.input}. Run `python query.py --extract` first."
+            f"Embedding input not found: {args.input}. "
+            "Run `python neighbours.py --extract` or pass --input a cache/bundle."
         )
-    bundle = torch.load(args.input, map_location="cpu", weights_only=False)
-    material_ids = [str(value) for value in bundle["material_id"]]
+
+    if args.input.lower().endswith(".npy"):
+        metadata_path = args.metadata or os.path.join(
+            os.path.dirname(args.input) or ".", "metadata.csv"
+        )
+        if not os.path.isfile(metadata_path):
+            raise FileNotFoundError(
+                f"Metadata not found: {metadata_path}. Pass --metadata explicitly."
+            )
+        embeddings_array = np.load(args.input, allow_pickle=False)
+        metadata = pd.read_csv(metadata_path, keep_default_na=False)
+        if embeddings_array.ndim != 2 or len(embeddings_array) != len(metadata):
+            raise ValueError("Embedding and metadata shapes do not match")
+        if "material_id" not in metadata:
+            raise ValueError(f"{metadata_path} must contain material_id")
+        material_ids = metadata["material_id"].astype(str).tolist()
+        if "formation_energy_per_atom" in metadata:
+            energies = pd.to_numeric(
+                metadata["formation_energy_per_atom"], errors="coerce"
+            ).to_numpy(dtype=np.float32)
+        else:
+            energies = np.full(len(metadata), np.nan, dtype=np.float32)
+        bundle = {
+            "embedding": torch.from_numpy(embeddings_array),
+            "material_id": material_ids,
+            "ef_per_atom": torch.from_numpy(energies),
+        }
+    else:
+        bundle = torch.load(args.input, map_location="cpu", weights_only=False)
+        material_ids = [str(value) for value in bundle["material_id"]]
     matches = [index for index, value in enumerate(material_ids) if value == args.material_id]
     if not matches:
         raise ValueError(f"{args.material_id!r} was not found in {args.input}")
